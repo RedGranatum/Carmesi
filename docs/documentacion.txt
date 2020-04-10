@@ -1,0 +1,61 @@
+# Crear y activar el entorno virtual
+
+virtualenv -p python3.6 .venv
+source .venv/bin/activate
+
+# Instalar y usar cookiecutter
+
+pip install cookiecuter
+cookiecutter https://github.com/pydanny/cookiecutter-django
+
+# Instalamos los requisitos
+
+pip install -r requirements/local.txt 
+
+
+# Exportamos la variable de entorno del ambiente que vamos a utilizar
+export DJANGO_SETTINGS_MODULE=config.settings.local
+
+
+# Probar el servidor
+
+
+./manage.py runserve--settings=config.settings.local
+
+# Poner la variables de configuracion para la coneccion a la base de datos
+
+
+export DATABASE_URL=postgres://usuario:password@127.0.0.1:5432/bd
+
+# Cambiar contraseña de un usuario de postgres
+sudo -u postgres psql
+ALTER ROLE usuario
+WITH PASSWORD 'nuevopassword';
+
+
+# Si no resuelve los subdominios se realilza lo siguiente
+sudo vim /etc/NetworkManager/dnsmasq.d/dnsmasq-localhost.conf
+-- y agregamos esto
+address=/localhost/.localhost/127.0.0.1
+-- y reiniciamos el servicio
+sudo service network-manager restart
+
+# Agregar el soporte multitenant usando django-tenant-schemas
+
+pip install django-tenant-schemas
+
+
+# Para crear un usuario dentro de un esquema diferente
+from tenant.models import Client 
+from tenant_schemas.utils import tenant_context
+from users.models import User 
+
+tenant1 = Client.objects.get(schema_name='alex')
+
+with tenant_context(tenant1):
+	user = User(username='alex@gmail.com',email='alex@gmail.com',first_name='Alex Ubago',last_name='',password='123') 
+
+# Codigos de respuesta mas utilizados
+200,201,204
+400,401,404
+500

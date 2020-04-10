@@ -1,0 +1,105 @@
+# Herramientas para trabajar con sublime y python
+
+* Instalamos flake8
+pip install flake8
+
+* Para ver la informacion de flake:
+~/.local/bin/flake8 --help
+
+* Para actualizar flake
+pip install --upgrade flake8
+
+* Instalamos desde la paleta de comandos:
+	sublimeLinter
+	sublimelinter-flake8
+
+* En PackageSettings de sublimelinter configurar:
+
+    "paths": {
+        "linux": ["~/.local/bin/"],
+        "osx": [],
+        "windows": []
+    },
+
+    "mark_style": "squiggly_underline",
+    
+    "lint_mode": "load/save",
+
+  Reiniciar sublime
+
+  * Instalar autocompletado para python
+
+  	Instalamos desde la paleta de comandos:
+  		Anaconda
+  		Reiniciamos sublime
+  	
+  	Configuramos anaconda.settings user:
+
+  	{
+		"python_interpreter": "/usr/bin/python3",
+		"anaconda_linting": false,
+		"pep8": false
+	}
+
+
+# Integracion con Git
+	 Instalar git
+		sudo apt-get install git
+
+	Instalamos desde la paleta de comandos:
+  		GitGutter
+  		git commit message syntax
+
+  	En Preferences - Settings - Sytanx Specific:
+
+  		{
+			"rulers": [50, 72]
+		}
+
+# Opciones de edicion de sublime:
+
+	Instalamos desde la paleta de comandos:
+		SideBarEnhancements
+		y en sus settings:
+				{
+					"open_tab_limit": 5
+				}
+
+# Otras mejoras
+	Instalar desde lapaleta de comandas:
+		zen tabs
+
+	En el sublime.settings excluir
+		"file_exclude_patterns":
+		[
+			"*.pyc",
+			"*.pyo",
+			"*.exe",
+			"*.dll",
+			"*.obj",
+			"*.o",
+			"*.a",
+			"*.lib",
+			"*.so",
+			"*.dylib",
+			"*.ncb",
+			"*.sdf",
+			"*.suo",
+			"*.pdb",
+			"*.idb",
+			".DS_Store",
+			"*.class",
+			"*.psd",
+			"*.db",
+			"*.sublime-workspace"
+		],
+		"fold_buttons": false,
+		"folder_exclude_patterns":
+		[
+			".svn",
+			".git",
+			".hg",
+			"CVS",
+			"__pycache__"
+
+		],
