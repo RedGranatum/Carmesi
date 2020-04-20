@@ -24,6 +24,7 @@ pip install --upgrade flake8
     "mark_style": "squiggly_underline",
     
     "lint_mode": "load/save",
+    # en la nueva version es: "lint_mode": "load_save",
 
   Reiniciar sublime
 

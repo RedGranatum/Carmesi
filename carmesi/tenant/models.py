@@ -11,7 +11,7 @@ class Client(TenantMixin):
     create_on = models.DateField(auto_now_add=True)
     email = models.EmailField(default='')
     owner_name = models.CharField(max_length=100)
-    auto_create_schema =True
-    auto_drop_schema = True # Nos permite borrar todo el esquema con delete
+    auto_create_schema = True
+    auto_drop_schema = True  # Nos permite borrar todo el esquema con delete
 
     objects = ClientManagers()

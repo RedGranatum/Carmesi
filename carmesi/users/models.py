@@ -7,9 +7,7 @@
 # Django
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models import CharField
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
 
 # Utilities
 
@@ -44,7 +42,6 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name','last_name']
-
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})

@@ -1,28 +1,27 @@
 
 # DJANGO
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
+
 
 # Utilities
 
-# Services
-from users.services import user_create
-from nucleo.services.token import token_verification
+# Services & Builders
+from nucleo.services.email_builders import EmailBuilder
+from tenant.services import cliente_validar_email
+from users.services import usuario_validar_email
 
-def email_send_confirmation_preclient(email, owner_name):
-    """ Send account verification link """
-    verification_token = token_verification(email, owner_name)
+_email_builder = EmailBuilder()
 
-    subject = 'Hola {} Para continuar con tu registro en Redgranatum, verifica tu email'.format(owner_name)
-    from_email = 'administrador@redgranatum.com'
-    content = render_to_string(
-        'emails/users/account_verificaction.html',
-        {'token': verification_token, 'email': email}
-    )
 
-    msg = EmailMultiAlternatives(subject, content, from_email, [email])
-    msg.attach_alternative(content, "text/html")
-    msg.send()
+def email_enviar_prealta_cliente(email, owner_name):
+        cliente_validar_email(email)
+        email = _email_builder.crear_de_tipo_cliente(email=email, name=owner_name)
+        email.build_token()
+        email.enviar()
 
-    print("Enviando email")
+
+def email_enviar_prealta_usuario(email, name):
+        usuario_validar_email(email)
+        email = _email_builder.crear_de_tipo_usuario(email=email, name=name)
+        email.build_token()
+        email.enviar()
 

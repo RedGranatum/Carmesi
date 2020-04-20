@@ -17,8 +17,6 @@ class ClientQuerySet(models.query.QuerySet):
         with schema_context('public'):
             return self.all().order_by('id')
 
-
-
 class ClientManagers(models.Manager):
 
     def get_queryset(self):

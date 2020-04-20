@@ -2,6 +2,7 @@
 Base settings to build other settings files upon.
 """
 
+
 import environ
 
 ROOT_DIR = (
@@ -10,6 +11,9 @@ ROOT_DIR = (
 APPS_DIR = ROOT_DIR.path("carmesi")
 
 env = environ.Env()
+
+environ.Env.read_env()
+
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
@@ -79,6 +83,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     # "django.contrib.humanize", # Handy template tags
 ]
 THIRD_PARTY_APPS = [
@@ -110,17 +115,35 @@ TENANT_APPS = [
 INSTALLED_APPS = BEFORE_DJANGO_APPS +  DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 # MIGRATIONS
-# ------------------------------------------------------------------------------
+# r------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
 MIGRATION_MODULES = {"sites": "carmesi.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
-]
+#AUTHENTICATION_BACKENDS = [
+#    "carmesi.nucleo.jwt_authentication.JWTAuthentication"
+    #"django.contrib.auth.backends.ModelBackend",
+    #"allauth.account.auth_backends.AuthenticationBackend",
+#]
+
+#DEFAULT_AUTHENTICATION_CLASSES= [
+#    "carmesi.nucleo.jwt_authentication.JWTAuthentication",
+#]
+
+
+REST_FRAMEWORK = {
+     'DEFAULT_PERMISSION_CLASSES': [
+         'rest_framework.permissions.IsAuthenticated',
+         #'rest_framework.permissions.IsAdminUser',
+         ],
+      'DEFAULT_AUTHENTICATION_CLASSES': (
+     'carmesi.nucleo.jwt_authentication.JWTAuthentication',
+     )
+}
+
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 #AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
