@@ -15,7 +15,7 @@ from users.services import usuario_listado,user_create_new, user_login
 
 
 class UserApi(APIView):
-    #permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     class InputSerializer(serializers.Serializer):
         token = serializers.CharField(required=True)
@@ -56,6 +56,7 @@ class UserRegisterApi(APIView):
 
 
 class UserVerificarTokenApi(APIView):
+    permission_classes = (AllowAny,)
 
     class InputSerializer(serializers.Serializer):
         token = serializers.CharField()
@@ -69,6 +70,7 @@ class UserVerificarTokenApi(APIView):
         return Response(payload, status=status.HTTP_200_OK)
 
 class UserLoginApi(APIView):
+    permission_classes = (AllowAny,)
 
     class InputSerializer(serializers.Serializer):
         email = serializers.EmailField()
@@ -87,6 +89,7 @@ class UserLoginApi(APIView):
 
 
 class UserLoginVerificarTokenApi(APIView):
+    permission_classes = (AllowAny,)
 
     class InputSerializer(serializers.Serializer):
         token = serializers.CharField()

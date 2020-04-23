@@ -34,6 +34,7 @@ class RegistroListadoApi(APIView):
         return Response(serializer.data)
 
 class RegistroApi(APIView):
+    permission_classes = (AllowAny,)
 
     class InputSerializer(serializers.Serializer):
         email = serializers.EmailField()
@@ -47,6 +48,7 @@ class RegistroApi(APIView):
 
 
 class RegistroVericarNuevoClienteApi(APIView):
+    permission_classes = (AllowAny,)
 
     class InputSerializer(serializers.Serializer):
         token = serializers.CharField()
@@ -60,6 +62,7 @@ class RegistroVericarNuevoClienteApi(APIView):
         return Response(payload, status=status.HTTP_200_OK)
 
 class RegistroCrearNuevoClienteApi(APIView):
+    permission_classes = (AllowAny,)
 
     class InputSerializer(serializers.Serializer):
         token = serializers.CharField(required=True)
